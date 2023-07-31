@@ -1,5 +1,7 @@
-// update a document with name equals to name = Holberton school and add the new attr address
+// Adds a new attribute to documents in the school collection.
+
 db.school.update(
-	{name:"Holberton school"},
-	{$set: {address: "972 Mission street"}},
-	{ multi: true })
+    { name: "Holberton school" },
+    { "$set": { address: "972 Mission street" } },
+    { multi: true }
+);

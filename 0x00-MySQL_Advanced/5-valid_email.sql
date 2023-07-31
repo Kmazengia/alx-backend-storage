@@ -1,11 +1,16 @@
--- SQL script that creates a trigger that resets the attribute valid_email
--- only when the email has been changed.
-DELIMITER |
-CREATE TRIGGER email_bool BEFORE UPDATE ON users
+-- This SQL script creates a trigger named 'validate_email' that runs before an update on the 'users' table.
+-- It compares the old email and new email, if they are different it sets the valid_email field to 0.
+
+DROP TRIGGER IF EXISTS validate_email;
+DELIMITER $$
+CREATE TRIGGER validate_email
+BEFORE UPDATE ON users
 FOR EACH ROW
 BEGIN
-    IF NEW.email <> OLD.email THEN
-    SET NEW.valid_email = 0;
+    IF OLD.email != NEW.email THEN
+        SET NEW.valid_email = 0;
+    ELSE
+        SET NEW.valid_email = NEW.valid_email;
     END IF;
-END;
-|
+END $$
+DELIMITER 
